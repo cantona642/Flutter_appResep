@@ -7,9 +7,6 @@ abstract class ResepEvent extends Equatable {
 }
 
 class ResepAdd extends ResepEvent {
-  // final String title;
-
-  // ResepAdd(this.title);
   final ResepModel resepmodel;
 
   const ResepAdd(this.resepmodel);

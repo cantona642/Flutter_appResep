@@ -1,7 +1,5 @@
 import 'package:appresep/bloc/blocs.dart';
-import 'package:appresep/favorite_page.dart';
 import 'package:appresep/listResep_page.dart';
-import 'package:appresep/model/resep.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -10,25 +10,32 @@ class ListResepPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('App Resep'), actions: <Widget>[
-        Stack(children: <Widget>[
-          IconButton(
-              onPressed: () => Get.to(() => FavoritePage()),
-              icon: Icon(Icons.favorite)),
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              height: 20.0,
-              width: 20.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.red,
-              ),
-              child: Center(
-                child: Text("2"),
-              ),
-            ),
-          ),
-        ])
+        BlocBuilder<ResepBloc, ResepState>(
+          builder: (context, state) {
+            if (state is ResepLoaded) {
+              return Stack(children: <Widget>[
+                IconButton(
+                    onPressed: () => Get.to(() => FavoritePage()),
+                    icon: Icon(Icons.favorite)),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: 20.0,
+                    width: 20.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                    child: Center(
+                        child: Text(state.favorite != null
+                            ? state.favorite.length.toString()
+                            : "")),
+                  ),
+                ),
+              ]);
+            }
+          },
+        )
       ]),
       body: BlocBuilder<ResepBloc, ResepState>(
         builder: (context, state) {
@@ -44,6 +51,7 @@ class ListResepPage extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
+                              //Text("test ?" + state.total),
                               Container(
                                 height: 50.0,
                                 width: 50.0,
@@ -69,7 +77,7 @@ class ListResepPage extends StatelessWidget {
                                     Text(
                                       state.listmodel[index].time + "min",
                                       style: TextStyle(fontSize: 10.0),
-                                    )
+                                    ),
                                   ],
                                 )
                               ],

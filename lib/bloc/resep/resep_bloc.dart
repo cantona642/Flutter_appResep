@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 part 'resep_event.dart';
 part 'resep_state.dart';
 
+enum CounterEvent { increment, decrement }
+
 class ResepBloc extends Bloc<ResepEvent, ResepState> {
   ResepBloc() : super(ResepInitial());
 
@@ -20,17 +22,20 @@ class ResepBloc extends Bloc<ResepEvent, ResepState> {
           'https://image.shutterstock.com/image-vector/sample-stamp-grunge-texture-vector-260nw-1389188336.jpg',
           'Tumis Sayur',
           '12',
-          false));
+          false
+        ));
       resepModel.add(ResepModel(
           'https://image.shutterstock.com/image-vector/sample-stamp-grunge-texture-vector-260nw-1389188336.jpg',
           'Tumis Sayur2',
           '12',
-          false));
+          false
+          ));
       resepModel.add(ResepModel(
           'https://image.shutterstock.com/image-vector/sample-stamp-grunge-texture-vector-260nw-1389188336.jpg',
           'Tumis Sayur3',
           '12',
-          false));
+          false
+          ));
       yield ResepLoaded(resepModel, []);
     } else if (event is ResepAdd) {
       List<ResepModel> resepModel = [];
@@ -42,8 +47,11 @@ class ResepBloc extends Bloc<ResepEvent, ResepState> {
       }
       for (var i = 0; i < resepModel.length; i++) {
         if (resepModel[i].title == event.resepmodel.title) {
-          resepModel[i] = ResepModel(event.resepmodel.imageUrl,
-              event.resepmodel.title, event.resepmodel.time, true);
+          resepModel[i] = ResepModel(
+              event.resepmodel.imageUrl,
+              event.resepmodel.title,
+              event.resepmodel.time,
+              true);
           print(resepModel[i]);
 
           break;
@@ -51,6 +59,7 @@ class ResepBloc extends Bloc<ResepEvent, ResepState> {
       }
 
       favoriteresep.add(event.resepmodel);
+
       yield ResepLoaded(resepModel, favoriteresep);
     } else if (event is ResepDelete) {
       List<ResepModel> resepModel = [];
@@ -61,8 +70,11 @@ class ResepBloc extends Bloc<ResepEvent, ResepState> {
       }
       for (var i = 0; i < resepModel.length; i++) {
         if (resepModel[i].title == event.resepmodel.title) {
-          resepModel[i] = ResepModel(event.resepmodel.imageUrl,
-              event.resepmodel.title, event.resepmodel.time, false);
+          resepModel[i] = ResepModel(
+              event.resepmodel.imageUrl,
+              event.resepmodel.title,
+              event.resepmodel.time,
+              false);
 
           break;
         }
@@ -89,6 +101,25 @@ class ResepBloc extends Bloc<ResepEvent, ResepState> {
       }
       yield ResepLoaded(resepModel, favoriteresep);
     }
+    //   else if (event is CartCount) {
+    //     List<ResepModel> resepModel = [];
+    //     List<ResepModel> favoriteresep = [];
+
+    //     if (state is ResepLoaded) {
+    //       resepModel.addAll((state as ResepLoaded).listmodel);
+    //       favoriteresep.remove((state as ResepLoaded).favorite);
+    //     }
+
+    //     for (var i = 0; i < favoriteresep.length; i++) {
+    //       if (favoriteresep[i].title == event.resepmodel.title) {
+    //         favoriteresep.remove(favoriteresep[i]);
+    //         break;
+    //       }
+    //     }
+
+    //     favoriteresep.add(event.resepmodel);
+    //     yield ResepLoaded(resepModel, favoriteresep);
+    //   }
   }
 }
 
