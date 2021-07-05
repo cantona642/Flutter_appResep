@@ -12,7 +12,10 @@ class ListResepPage extends StatelessWidget {
       appBar: AppBar(title: Text('App Resep'), actions: <Widget>[
         BlocBuilder<ResepBloc, ResepState>(
           builder: (context, state) {
-            if (state is ResepLoaded) {
+            if (state is ResepInitial) {
+              context.read<ResepBloc>().add(ResepFetch());
+              return CircularProgressIndicator();
+            } else if (state is ResepLoaded) {
               return Stack(children: <Widget>[
                 IconButton(
                     onPressed: () => Get.to(() => FavoritePage()),
@@ -33,6 +36,8 @@ class ListResepPage extends StatelessWidget {
                   ),
                 ),
               ]);
+            } else {
+              return CircularProgressIndicator();
             }
           },
         )
